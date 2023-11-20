@@ -57,3 +57,8 @@ RUN bundle install
 ADD package.json yarn.lock /app/
 ADD bin/yarn /app/bin/
 RUN bundle exec bin/yarn install
+
+# Add certificates
+RUN mkdir -p /app/certs
+COPY certs/fullchain.pem /app/certs/fullchain.pem
+COPY certs/privkey.pem /app/certs/privkey.pem

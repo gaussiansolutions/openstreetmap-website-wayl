@@ -18,7 +18,7 @@ services:
       /tmp/pids/
     ports:
       - "3000:3000"
-    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    command: bundle exec rails s -p 443 -b 'ssl://0.0.0.0:443?key=/app/certs/privkey.pem&cert=/app/certs/fullchain.pem'
     depends_on:
       - db
 
@@ -31,6 +31,7 @@ services:
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: openstreetmap
+      PGDATA: db-data:/var/lib/postgresql/data
     volumes:
       # Mount the Postgres data directory so it persists between runs
       - db-data:/var/lib/postgresql/data
